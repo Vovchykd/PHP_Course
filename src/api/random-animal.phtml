@@ -1,16 +1,34 @@
 <?php
-header('Content-Type: text/html; charset=utf-8');
+    header('Content-Type: text/html; charset=utf-8');
+
+    $rawDogApiResponse = file_get_contents("https://dog.ceo/api/breeds/image/random");
+    $rawCatApiResponse = file_get_contents("https://api.thecatapi.com/v1/images/search");
+
+    $dogUrl = json_decode($rawDogApiResponse, true)["message"];
+    $catUrl = json_decode($rawCatApiResponse, true)[0]['url'];
+
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Випадкова тваринка</title>
-</head>
-<body>
-<h1>Привіт. Ось вам випадкова тваринка</h1>
-<p>Можливо собачка</p>
-</body>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Випадкова тваринка</title>
+    </head>
+    <body>
+        <h1>Привіт. Ось вам випадкова тваринка</h1>
+        <h2>
+            Собака:
+            <p>
+                <img src="<?php echo $dogUrl; ?>" alt="Random Dog">
+            </p>
+        </h2>
+        <h2>
+            Кіт:
+            <p>
+                <img src="<?php echo $catUrl; ?>" alt="Random Cat">
+            </p>
+        </h2>
+    </body>
 </html>
